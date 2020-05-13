@@ -1,61 +1,4 @@
-var palitra_color = new Object();
-
-palitra_color.red = new Object();
-palitra_color.red.Name = "IndianRed";
-palitra_color.red.R = 205;
-palitra_color.red.G = 92;
-palitra_color.red.B = 92;
-
-palitra_color.green = new Object();
-palitra_color.green.Name = "LimeGreen";
-palitra_color.green.R = 50;
-palitra_color.green.G = 205;
-palitra_color.green.B = 50;
-
-palitra_color.blue = new Object();
-palitra_color.blue.Name = "DodgerBlue";
-palitra_color.blue.R = 30;
-palitra_color.blue.G = 144;
-palitra_color.blue.B = 255;
-
-palitra_color.white = new Object();
-palitra_color.white.Name = "white";
-palitra_color.white.R = 255;
-palitra_color.white.G = 255;
-palitra_color.white.B = 255;
-
-palitra_color.black = new Object();
-palitra_color.black.Name = "black";
-palitra_color.black.R = 0;
-palitra_color.black.G = 0;
-palitra_color.black.B = 0;
-
-palitra_color.grey = new Object();
-palitra_color.grey.Name = "grey";
-palitra_color.grey.R = 128;
-palitra_color.grey.G = 128;
-palitra_color.grey.B = 128;
-
-
-window['palitra_color'] = palitra_color;
-
-
-
-var training1 = [
-    palitra_color.white,
-    "                           ",
-    "                           ",
-    "           r g b           ",
-    "           r g b           ",
-    "                           ",
-    "           R G B           ",
-    "                           ",
-    "                           ",
-    "       xxxxxxx xxxxxxxxx   ",
-    "       x               x   ",
-    "       x @           * x   ",
-    "       x               x   ",
-    "       xxxxxxxxxxxxxxxxx   ",
+var level_null = [
     "                           ",
     "                           ",
     "                           ",
@@ -63,106 +6,263 @@ var training1 = [
     "                           ",
     "                           ",
     "                           ",
+    "                           ",
+    "                           ",
+    "                           ",
+    "                           ",
+    "                           ",
+    "                           ",
+    "                           ",
+    "                           ",
+    "                           ",
+    "                           ",
+    "                           ",
+    "                           ",
+    "                           ",
+palitra_color.white,
 ];
 
-var training2 = [
-    palitra_color.white,
-    "                           ",
-    "                           ",
-    "                           ",
-    "                           ",
-    "                           ",
-    "                           ",
-    "                           ",
-    "                           ",
-    "       xxxxxxxxxxxxxxxxx   ",
-    "       x         r     x   ",
-    "       x @   R   r   * x   ",
-    "       x         r     x   ",
-    "       xxxxxxxxxxxxxxxxx   ",
-    "                           ",
-    "                           ",
-    "                           ",
-    "                           ",
-    "                           ",
-    "                           ",
-    "                           ",
+var maslevel=[
+    //тренеровка 1
+            [
+                        "                           ",
+                        "                           ",
+                        "                           ",
+                        "                           ",
+                        "                           ",
+                        "                           ",
+                        "                           ",
+                        "                           ",
+                        "    xxxxxxxxxxxxxxxxxxxx   ",
+                        "    x                  x   ",
+                        "    x @              * x   ",
+                        "    x                  x   ",
+                        "    xxxxxxxxxxxxxxxxxxxx   ",
+                        "                           ",
+                        "                           ",
+                        "                           ",
+                        "                           ",
+                        "                           ",
+                        "                           ",
+                        "                           ",
+                    palitra_color.white,
+],
+    //тренеровка 2
+            [
+                "                           ",
+                "                           ",
+                "                           ",
+                "                           ",
+                "                           ",
+                "                           ",
+                "                           ",
+                "                           ",
+                "    xxxxxxxxxxxxxxxxxxx    ",
+                "    x          r      x    ",
+                "    x  R   @   r   *  x    ",
+                "    x          r      x    ",
+                "    xxxxxxxxxxxxxxxxxxx    ",
+                "                           ",
+                "                           ",
+                "                           ",
+                "                           ",
+                "                           ",
+                "                           ",
+                "                           ",
+            palitra_color.white,
+],
+    //тренеровка 3
+            [
+                "                           ",
+                "                           ",
+                "                           ",
+                "                           ",
+                "                           ",
+                "                           ",
+                "                           ",
+                "       xxxxxxxxxxxxxxxxx   ",
+                "       x         g     x   ",
+                "       x  *      g  G  x   ",
+                "       x         g     x   ",
+                "       xxxxxxxxxxxxbbbxx   ",
+                "       x         r     x   ",
+                "       x  @   R  r  B  x   ",
+                "       x         r     x   ",
+                "       xxxxxxxxxxxxxxxxx   ",
+                "                           ",
+                "                           ",
+                "                           ",
+                "                           ",
+                "                           ",
+                palitra_color.white,
+            ],
+    //уровень 1
+            [
+                "                           ",
+                "                           ",
+                "                           ",
+                "                           ",
+                " xxxxxxxxxxxxxxxxxxxxxx    ",
+                " x   x        x       x    ",
+                " x * x        B       xxxxx",
+                " x   x        x           x",
+                " xbbbx        x           x",
+                " x @ x        x           x",
+                " x   xxxxxbbbxxxxxggxxxbbbx",
+                " x   r                    x",
+                " x   r                    x",
+                " x   xxxxxxxxxxxxxxxxxx   x",
+                " x      b          b      x",
+                " x    R xxxxxxxxxxxxG     x",
+                " x      x          xxxxxxxx",
+                " xxxxxxxx                  ",
+                "                           ",
+                "                           ",
+            palitra_color.white,
+],
+    //уровень 2
+            [
+                "                           ",
+                "                           ",
+                "                           ",
+                "                           ",
+                "  xxxxxxxxxxxxxxx          ",
+                "  xR    b   r   x          ",
+                "  x     b   r   x          ",
+                "  xxrrrxxbbbxrrrx          ",
+                " xx     x   x   x          ",
+                " xB  @  b   x * x          ",
+                " xx     x   x   x          ",
+                "  xxrrrxxbbbx   x          ",
+                "  x     g    g  x          ",
+                "  x     g     g x          ",
+                "  xG    g      gx          ",
+                "  xxxxxxxxxxxxxxx          ",
+                "                           ",
+                "                           ",
+                "                           ",
+            palitra_color.blue,
+],
+    //уровень 3
+            [
+            "@x x x         x   x x     ",
+            "      x x  x x    x    x x ",
+            " xxxx     xxx x x   x x  x ",
+            "      x  x    xxx xxx   xx ",
+            " xx xxx x  xx    x x  x    ",
+            " x      x x  x xxx    x x x",
+            " xxxxx  x  x  r   xx xx  x ",
+            "         x x x  x x     x  ",
+            " x x   x   xxxxBxx  x x  x ",
+            "  x x  xx x    b    x  x x ",
+            " x   x     x x xx x  x x  x",
+            "  x xx  x x    x  xx x xx  ",
+            " x   x x  x x x x   x   x x",
+            "   x     xx   x   x  x  x  ",
+            " x  x x  x   xxxx xxxxx xxx",
+            "  x x      x     x         ",
+            "x   x xxx xxx xx  xxxx  gxg",
+            "  x      x       xR    x   ",
+            "bxxxxxxxgxxxxxxxxxxxxxx  * ",
+            "                      Gx   ",
+            palitra_color.white,
+],
+    //уровень 4
+            [
+            "@                          ",
+            "BBBBBBBBBBBBBBBBBBBBBBBBBB ",
+            "                         B ",
+            " BBBBBBBBBBBBBBBBBBBBBBB B ",
+            " B                     B B ",
+            " B BBBBBBBBBBBBBBBBBBB B B ",
+            " B B                 B B B ",
+            " B B BBBBBBBBBBBBBBB B B B ",
+            " B B BrrrrrB       B B B B ",
+            " B B Br   rB       B B B B ",
+            " B B Br * rB       B B B B ",
+            " B B Br   rB       B B B B ",
+            " B B BrrrrrBBBBBBBBB B B B ",
+            " B B BR              B B B ",
+            " B B BBBBBBBBBBBBBBBBB B B ",
+            " B B                   B B ",
+            " B BBBBBBBBBBBBBBBBBBBBB B ",
+            " B                       B ",
+            " BBBBBBBBBBBBBBBBBBBBBBBBB ",
+            "                           ",
+            palitra_color.white,
+],
+    //уровень 5
+            [
+            "R@                         ",
+            "BBBBBBBBBBBBBBBBBBBBBBBBBB ",
+            "                         B ",
+            " BBBBBBBBBBBBBBBBBBBBBBB B ",
+            " B                     B B ",
+            " B BBBBBBBBBBBBBBBBBBB B B ",
+            " B B                 B B B ",
+            " B B BBBBBBBBBBBBBBB B B B ",
+            " B B Brrrrr        B B B B ",
+            " B B Br   r        B B B B ",
+            " B B Br * r        B B B B ",
+            " B B Br   r        B B B B ",
+            " B B BrrrrrBBBBBBBBB B B B ",
+            " B B B               B B B ",
+            " B B BBBBBBBBBBBBBBBBB B B ",
+            " B B                   B B ",
+            " B BBBBBBBBBBBBBBBBBBBBB B ",
+            " B                       B ",
+            " BBBBBBBBBBBBBBBBBBBBBBBBB ",
+            "                           ",
+            palitra_color.white,
+],
+    //уровень 6
+            [
+                "                           ",
+                "                           ",
+                "                           ",
+                "          RRRRR            ",
+                "       RRR     R           ",
+                "      R   R RR  RRR        ",
+                "      R R     R   R        ",
+                "     R  gxxx  RRR R        ",
+                "      RgG   b R   R        ",
+                "       x     xR RRR        ",
+                "       r  @  r   R         ",
+                "     xxx     x R R         ",
+                "    x   b    x R R         ",
+                "   x     xxxxBg  R         ",
+                "   x  *  x  Rb  R          ",
+                "    x    x   RRR           ",
+                "     x  x                  ",
+                "      xx                   ",
+                "                           ",
+                "                           ",
+            palitra_color.red,
+],
+    //конец
+            [
+                "                           ",
+                "                           ",
+                "                           ",
+                "                           ",
+                "                           ",
+                "   x   x   xxx   x   x     ",
+                "   x   x  x   x  x   x     ",
+                "   x   x  x   x  x   x     ",
+                "   xxxxx  x * x  xxxxx     ",
+                "       x  x   x      x     ",
+                "       x  x   x      x     ",
+                "       x   xxx       x     ",
+                "                           ",
+                "                           ",
+                "                           ",
+                "                           ",
+                "                           ",
+                "             @             ",
+                "                           ",
+                "                           ",
+            palitra_color.white,
+]
 ];
 
-var training3 = [
-    palitra_color.white,
-    "                           ",
-    "                           ",
-    "                           ",
-    "               *           ",
-    "                           ",
-    "                           ",
-    "                           ",
-    "                           ",
-    "       xxxxxxxxxxxxxbbbx   ",
-    "       x     r G g     x   ",
-    "       x @ R r   g   B x   ",
-    "       x     r   g     x   ",
-    "       xxxxxxxxxxxxxxxxx   ",
-    "                           ",
-    "                           ",
-    "                           ",
-    "                           ",
-    "                           ",
-    "                           ",
-    "                           ",
-];
-
-var training4 = [
-    palitra_color.white,
-    "                           ",
-    "                           ",
-    "                           ",
-    "                           ",
-    " xxxxxxxxxxxxxxxxxxxxxx    ",
-    " x   x        x       x    ",
-    " x * x        B       xxxxx",
-    " x   x        x           x",
-    " xbbbx        x           x",
-    " x @ x        x           x",
-    " x   xxxxxbbbxxxxxggxxxbbbx",
-    " x   r                    x",
-    " x   r                    x",
-    " x   xxxxxxxxxxxxxxxxxx   x",
-    " x      b          b      x",
-    " x    R xxxxxxxxxxxxG     x",
-    " x      x          xxxxxxxx",
-    " xxxxxxxx                  ",
-    "                           ",
-    "                           ",
-];
-
-var end = [
-    palitra_color.white,
-    "                           ",
-    "                           ",
-    "                           ",
-    "                           ",
-    "                           ",
-    "                           ",
-    "                           ",
-    "                           ",
-    "                           ",
-    "                           ",
-    "             @             ",
-    "                           ",
-    "                           ",
-    "            xxx            ",
-    "           x   x           ",
-    "           x * x           ",
-    "           x   x           ",
-    "            xxx            ",
-    "                           ",
-    "                           ",
-];
-
-var maslevel=[training1,training2,training3,training4,end];
 window['maslevel'] = maslevel;
-
-
-

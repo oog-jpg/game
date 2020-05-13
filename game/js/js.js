@@ -1,8 +1,10 @@
 var game = {
     state: "load_map_1",
-    level: 0,
+    level: -1,
+    level_max: 0,
     mashtab:30,
 };
+
 
 var fon={
     load: palitra_color.white,
@@ -14,15 +16,15 @@ var fon={
 }
 
 var player = {
-	x:7*game.mashtab,
-	y:15*game.mashtab,
+	x:0,
+	y:0,
 	width: game.mashtab/2,
 	height: game.mashtab/2,
 };
 
 var finis = {
-	x:7*game.mashtab,
-	y:15*game.mashtab,
+	x:0,
+	y:0,
 	width: game.mashtab/2,
 	height: game.mashtab/2,
     animaciacryg: 0,
@@ -31,43 +33,92 @@ var finis = {
 var keyboard = { };
 var block = [];
 var obj = [];
+var btnlevel = [];
 
+var can = document.getElementById("canvas");
+var c = can.getContext('2d');
+
+game.level=localStorage.getItem('key_level');
+game.level_max=localStorage.getItem('key_level_max');
+
+creat_button ();
 
 // =========== игра    ============
 
 function updategame(){
-    console.log(fon.R);
-        if(game.state=='load_map_1' && fon.zatemnenie>0.9)
+
+        if(keyboard[27])
+        { 
+             keyboard[27]=false;
+             switch(game.state)
              {
-                createMap(maslevel[game.level]);
-                game.state="load_map_2";
+                    case "playing":
+                     game.state="menu_open";
+                    break;
+
+                    case "menu_1":
+                     game.state="menu_close";
+                    break;
+
+                default:
+               break;
+            }
+        }  
+    
+      if(keyboard[46])
+      {
+        localStorage.setItem('key_level_max',  0);
+        localStorage.setItem('key_level',  -1);
+        location.reload();
+      }
+
+      
+            if(game.state=='load_map_1')
+             { 
+                localStorage.setItem('key_level',  game.level);
+                    if(zatemnenieplus())
+                    {
+                    block = [];
+                    obj=[];
+                    createMap(maslevel[++game.level]);
+
+                        if(game.level>game.level_max){
+                            game.level_max=game.level;
+                            localStorage.setItem('key_level_max',  game.level_max);
+                            btnlevel[game.level].state_level="unlock";
+                        }
+                    game.state="load_map_2";
+                    }
              }
     
-        if(game.state=='load_map_2' && fon.zatemnenie<0.1)
+            if(game.state=='load_map_2')
              {
+                 if(zatemnenieminus())
                 game.state="playing";
              }
-    
-    
-        if(game.state=='end')
+
+            if(game.state=="menu_open")
              {
-                game.state='end1';
-                alert("конец");
+                 if(zatemnenieplus())
+                   game.state="menu_1";
+             }
+    
+            if(game.state=="menu_close")
+             {
+                 if(zatemnenieminus())
+                   game.state="playing";
              }
 }
-
 
 function updatePlayer() {
     
     if(keyboard[38] && checkblock(player.x, player.y - game.mashtab)){
         player.y -= game.mashtab;
         if(player.y < 0) player.y = 0;
-       }
-    
-
+       } 
     if(keyboard[40] && checkblock(player.x, player.y +game.mashtab))  {
         player.y += game.mashtab;
-        var down = canvas.height - player.height-15;
+        var down = can.height - player.height-15;
 	    if(player.y > down) player.y = down;
     }	
 
@@ -77,13 +128,11 @@ function updatePlayer() {
 	}	
 
 	if(keyboard[39] && checkblock(player.x+ game.mashtab, player.y )) { 
-        
 	    player.x += game.mashtab;	
-	    var right = canvas.width - player.width-15;
+	    var right = can.width - player.width-15;
 	    if(player.x > right) player.x = right;
-	}	
+	}
 }
-
 
 function updatefon(){
     var color_speed=30;
@@ -104,16 +153,14 @@ function updatefon(){
             fon.G >fon.load.G ?  fon.G-=color_speed : fon.G+=color_speed ;
     
     if(fon.R == fon.load.R && fon.G == fon.load.G && fon.B == fon.load.B)
-      fon.zagrugen.Name=fon.load.Name;
-    else
-        fon.zagrugen.Name=null;
+      fon.zagrugen=fon.load;
 }
 
 // ============== карта =============
 
 function createMap(Level){
-    fon.load=Level[0];
-        for (var y = 1; y < Level.length; y++) 
+    fon.load=Level[Level.length-1];
+        for (var y = 0; y < Level.length-1; y++) 
         {
         var line = Level[y], gridLine = [];
             for (var x = 0; x < Level[1].length; x++) 
@@ -173,23 +220,39 @@ function createMap(Level){
                         })
                    break;
                     default:
-                           alert("ошибка при создании карты");
-                           console.log("элемент карты был не найден");
-                            console.log("обьект равен символу = "+line[x]);
-                           console.log("карта = "+game.level);
-                           console.log("строка = "+y);
-                           console.log("столбец = "+x);
-
+                           console.log( "элемент карты не найден \n"+
+                                        "карта = "+game.level+"\n"+
+                                        "символ = "+line[x]+"\n"+
+                                        "строка = "+y+"\n"+
+                                        "столбец = "+x+"\n");
                    break;
                    }
             }
         }               
 }
 
+function creat_button(){
+     for (var i = 0; i < maslevel.length; i++){
+     
+ btnlevel.push({
+      x:(i-Math.floor(i/6)*6)*100   +125,
+      y:Math.floor(i/6)*100         +100,
+      w:game.mashtab*2,
+      h:game.mashtab*2,
+      text:i+1,
+      state:"default",
+     state_level:(game.level_max>i-1) ? "unlock" : "lock"
+});
+ }
+}
+
+
 // =========== проверка ===
 
 function checkblock(x,y) {
     for(var i in block) {
+        
+
             if(x==block[i].x && y==block[i].y && block[i].color!=fon.zagrugen.Name){
                 return false;    
             }
@@ -202,15 +265,11 @@ function checkblock(x,y) {
 function checkwin(x,y) {
     if(x==finis.x && y==finis.y)
     {
-            game.level++ ;
-            block = [];
-            obj=[];
             game.state='load_map_1'; 
         if(maslevel.length==game.level)
             game.state='end';      
     }
 }
-
 
 function checkobj(x,y) {
     for(var i in obj) 
@@ -228,18 +287,24 @@ function checkobj(x,y) {
                 case palitra_color.blue.Name:
                     fon.load = palitra_color.blue;
                     break;
-                }  
+                }
+               
         }
     } 
+        
 }
 
+function checkCollision(x,y,obj){
+  	return x >= obj.x && x <= obj.x + obj.w && 
+        y >= obj.y && y <= obj.y + obj.h ;
+  }
 
 //====================================
-
 function doSetup() {
      
 $(document).keydown(function(e) {
   	keyboard[e.keyCode] = true;
+
 });
     
 $(document).keyup(function(e) {
@@ -247,9 +312,45 @@ $(document).keyup(function(e) {
 });
     
 }
+//====================================
+
+$(can).mousedown(function(e){
+    for(var i in btnlevel) 
+    {
+		if(checkCollision(e.offsetX,e.offsetY,btnlevel[i]) && btnlevel[i].state_level=="unlock")
+    	{
+            game.level=--i;
+            game.state='load_map_1';
+        }
+    }
+ });
+
+$(can).mousemove(function(e){
+        for(var i in btnlevel){
+	btnlevel[i].state = checkCollision(e.offsetX,e.offsetY,btnlevel[i] )?"over":"def";
+    }
+ });
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min)) + min; //Максимум не включается, минимум включается
+  return Math.floor(Math.random() * (max - min)) + min;
 }
+
+//
+
+function zatemnenieplus(){
+                if(fon.zatemnenie>0.9)return true;
+                else fon.zatemnenie+=0.1
+}
+
+function zatemnenieminus(){
+                if(fon.zatemnenie<0.1)return true;
+                else fon.zatemnenie-=0.1
+}
+
+
+
+
+
+  

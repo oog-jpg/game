@@ -1,10 +1,28 @@
 #canvas {
     width: 810px; 
     height: 600px;
-      outline: 2px solid #000; 
+    
+    outline: 2px solid #000; 
     border: 3px solid #fff; 
     border-radius: 10px; 
     
-    margin-left:20px;
- margin-top: 20px;
+    padding: 0;
+    margin: auto;
+    display: block;
+    position: absolute;
+    
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0; 
 }
+
+@font-face {
+font-family: "Pixel_Times_Bold"; 
+src: url("Pixel_Times_Bold.ttf") format("truetype"); 
+font-style: normal; 
+font-weight: normal; 
+} 
+
+
+

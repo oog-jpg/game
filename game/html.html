@@ -1,39 +1,124 @@
 <html>
 <head>
-<title></title>
+<title>"Game-R_G_B"</title>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" type="text/css" href="style.css" >
-
 </head>
 <body>
 
 <canvas id="canvas" width="810" height="600"></canvas>
- <script src='js/jquery-3.5.1.min.js'></script>
+      
+<script src='js/jquery-3.5.1.min.js'></script>
+<script src='js/palitra.js'></script>
 <script src='js/level.js'></script>
 <script src='js/js.js'></script>
-    
- 
 <script language="JavaScript">
-
-var can = document.getElementById("canvas");
-var c = can.getContext('2d');
-   
+ 
 function mainLoop() {
     
     updategame();
     updatefon();
-if(game.state=="playing")updatePlayer();	
+if(game.state=="playing")updatePlayer();
+    draw_level();
+    drowblackmenu();   
+  if(game.state=="menu_1")drawbtnlevel();
+
+}
     
+function draw_level() {
     drawBackground();
     drowMapobj();
     drawPlayer();
     drowPortal();
+    text_in_level();
+    }
+   
+// =========== интерфейс ============  
     
-    if(game.state=="load_map_1" || game.state=="load_map_2") drowblackmenu();  
-}
+function drawbtnlevel() {
+     c.fillStyle = palitra_color.white.Name;
+    c.font = "30pt Pixel_Times_Bold";
+    c.fillText("Выбор уровня", 160, 50); 
+    
+for(i in btnlevel) 
+{
+    var Btnlevel = btnlevel[i];
+            
+    c.beginPath();
+    c.globalAlpha = 1;
+var grd = c.createRadialGradient(Btnlevel.x+(Btnlevel.w/2),Btnlevel.y+(Btnlevel.w/2),10,
+                                 Btnlevel.x+(Btnlevel.w/2),Btnlevel.y+(Btnlevel.w/2),Btnlevel.w/2);
 
+               switch(Btnlevel.state_level)
+                {
+                    case "unlock":  
+    grd.addColorStop(0,"black");
+    grd.addColorStop(0.3,"black");
+    grd.addColorStop(0.5,"green");
+    grd.addColorStop(1,"black");
+                                   
+                  break;
+                    default:
+    grd.addColorStop(0,"black");
+    grd.addColorStop(0.3,"black");
+    grd.addColorStop(0.5,"red");
+    grd.addColorStop(1,"black");
+                                    
+                    break;  
+                }
+            
+c.fillStyle=grd;  
+c.fillRect(Btnlevel.x, Btnlevel.y, Btnlevel.w, Btnlevel.h);
+            
+                switch(Btnlevel.state)
+                {
+                    case "over":  
+               c.font = "25px Arial ";
+               c.fillStyle = palitra_color.white.Name;
+               c.fillText(Btnlevel.text,Btnlevel.x+Btnlevel.w/2 - c.measureText(Btnlevel.text).width/2,Btnlevel.y+Btnlevel.h/2+10 );
+
+                  break;
+                    default:
+               c.font = "20px Arial ";
+               c.fillStyle = palitra_color.white.Name;
+               c.fillText(Btnlevel.text,Btnlevel.x+Btnlevel.w/2 - c.measureText(Btnlevel.text).width/2,Btnlevel.y+Btnlevel.h/2+10 );
+                    break;  
+                }         
+c.closePath();
+c.stroke();    
+        }
+
+}
+ 
+function text_in_level(){
+    c.fillStyle = palitra_color.black.Name;
+    c.font = "17pt Pixel_Times_Bold";
+    switch(game.level)
+                {
+                    case 0:
+    c.fillText("ЦЕЛЬ ИГРЫ ДОЙТИ ДО ПОРТАЛА", 110, 100);
+    c.fillText("ДВИГАТСЯ С ПОМОЩЬЮ СТРЕЛОЧЕК", 110, 170);         
+                    break;
+                        
+                    case 1:
+    c.fillText("ЧТОБЫ ПРОЙТИ ЧЕРЕЗ КРАСНУЮ СТЕНКУ", 110, 100);
+    c.fillText("ДОСТАТОЧНО ПРОСТО ЕЕ НЕЗАМЕЧАТЬ", 110, 170);         
+                    break;
+                        
+                   case 2:
+    c.fillText("ДЛЯ ВЫБОРА УРОВНЯ НАЖМИТЕ - ECS", 110, 100);
+    c.fillText("ДЛЯ СБРОСА СОХРАНЕНИЙ - DEL", 110, 170);         
+                    break;
+                        
+                    case maslevel.length-1:
+    c.font = "30pt Pixel_Times_Bold";
+    c.fillText("ОШИБКА", 110, 100); 
+    c.fillText("УРОВЕНЬ НЕ НАЙДЕН", 110, 450);
+                    break;
+                }
+}   
     
-// =========== player ============
+// =========== игрок ============
 
 function drawPlayer() {  
 
@@ -41,21 +126,29 @@ function drawPlayer() {
      c.globalAlpha = 1;
      c.fillStyle = palitra_color.black.Name;
      c.strokeStyle= palitra_color.black.Name;
+
      c.arc(player.x+15, player.y+15, 15, 0, Math.PI*2, false);
      c.fill(); 
      c.closePath();
      c.stroke();
 }
     
- 
-// =========== background ============
+// =========== фон ============
 
 function drawBackground() {
      c.globalAlpha = 1;
      c.fillStyle = 'rgb('+fon.R+","+fon.G+","+fon.B+")";
      c.fillRect(0,0 , can.width, can.height);
 }
-
+    
+function drowblackmenu(){
+    
+     c.globalAlpha = fon.zatemnenie;
+     c.fillStyle = palitra_color.black.Name;
+     c.fillRect(0,0 , can.width, can.height);
+} 
+    
+// =========== обьекты ============
 function drowMapobj(){
     for(i in obj) {
         var Obj = obj[i];                       
@@ -99,25 +192,7 @@ function drowPortal(){
 
 }    
 
-function drowblackmenu(){
 
-    if(game.state=="load_map_1")
-        {
-          fon.zatemnenie+=0.1
-        }
-
-     if(game.state=="load_map_2")
-        { 
-            fon.zatemnenie-=0.1
-        }
-    
-     c.globalAlpha = fon.zatemnenie;
-     c.fillStyle = palitra_color.black.Name;
-     c.fillRect(0,0 , can.width, can.height);
-      
-} 
-      
-    
 doSetup();
 setInterval(mainLoop,60);
     
