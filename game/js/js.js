@@ -38,8 +38,16 @@ var btnlevel = [];
 var can = document.getElementById("canvas");
 var c = can.getContext('2d');
 
+if(localStorage.getItem('key_level_max')==null)
+    {
+localStorage.setItem('key_level',  game.level);
+localStorage.setItem('key_level_max',  game.level_max);
+    } 
+else
+    {
 game.level=localStorage.getItem('key_level');
 game.level_max=localStorage.getItem('key_level_max');
+    }
 
 creat_button ();
 
@@ -67,8 +75,7 @@ function updategame(){
     
       if(keyboard[46])
       {
-        localStorage.setItem('key_level_max',  0);
-        localStorage.setItem('key_level',  -1);
+        localStorage.clear();
         location.reload();
       }
 
@@ -81,7 +88,6 @@ function updategame(){
                     block = [];
                     obj=[];
                     createMap(maslevel[++game.level]);
-
                         if(game.level>game.level_max){
                             game.level_max=game.level;
                             localStorage.setItem('key_level_max',  game.level_max);
@@ -135,7 +141,7 @@ function updatePlayer() {
 }
 
 function updatefon(){
-    var color_speed=30;
+    var color_speed=40;
     
         if(fon.R<(fon.load.R+color_speed) && fon.R>(fon.load.R-color_speed))
             fon.R =fon.load.R;
@@ -159,7 +165,7 @@ function updatefon(){
 // ============== карта =============
 
 function createMap(Level){
-    fon.load=Level[Level.length-1];
+     fon.load=Level[Level.length-1];
         for (var y = 0; y < Level.length-1; y++) 
         {
         var line = Level[y], gridLine = [];
